@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Sistem Keuangan SD NEGERI WONOKERTO</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-blue-50 min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white py-4 shadow-lg">
+    <div class="max-w-6xl mx-auto flex items-center justify-between px-6">
+      <!-- Logo Sekolah -->
+      <img src="logo_sekolah.png" alt="Logo Sekolah" class="h-12 w-12 rounded-full shadow-md">
+      <!-- Judul -->
+      <h1 class="text-2xl font-extrabold tracking-wide drop-shadow-md">
+        SISTEM KEUANGAN SD NEGERI WONOKERTO
+      </h1>
+      <!-- Logo Pemkab -->
+      <img src="logo_pemkab.png" alt="Logo Pemkab" class="h-12 w-12 rounded-full shadow-md">
+    </div>
+  </header>
+
+ <!-- Menu Tab -->
+<nav class="bg-white shadow-md py-3 px-6 flex justify-between overflow-x-auto">
+  <button class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md hover:bg-blue-600 hover:text-white transition">🛡️ Satpam</button>
+  <button class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md hover:bg-green-600 hover:text-white transition">🏕️ Pramuka</button>
+  <button class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md hover:bg-yellow-500 hover:text-white transition">📘 LKS</button>
+  <button class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md hover:bg-pink-500 hover:text-white transition">❤️ Amal</button>
+  <button class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md hover:bg-purple-600 hover:text-white transition">📚 Buku</button>
+  <button class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md hover:bg-red-500 hover:text-white transition">🍳 Dapur</button>
+  <button class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md hover:bg-indigo-600 hover:text-white transition">🎶 MBG</button>
+  <button class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md hover:bg-gray-600 hover:text-white transition">⚡ Perubahan</button>
+</nav>
+
+ <!-- Kartu Konten -->
+<section class="bg-white shadow-md py-4 px-6 flex justify-between gap-4 max-w-6xl mx-auto">
+  <!-- Total Pemasukan -->
+  <div class="flex-1 bg-green-100 rounded-lg p-4 text-center">
+    <h3 class="text-sm font-bold text-gray-700">Total Pemasukan</h3>
+    <p class="text-xl font-extrabold text-green-600">Rp 0</p>
+  </div>
+
+  <!-- Total Pengeluaran -->
+  <div class="flex-1 bg-red-100 rounded-lg p-4 text-center">
+    <h3 class="text-sm font-bold text-gray-700">Total Pengeluaran</h3>
+    <p class="text-xl font-extrabold text-red-600">Rp 0</p>
+  </div>
+
+  <!-- Total Saldo -->
+  <div class="flex-1 bg-blue-100 rounded-lg p-4 text-center">
+    <h3 class="text-sm font-bold text-gray-700">Total Saldo</h3>
+    <p class="text-xl font-extrabold text-blue-600">Rp 0</p>
+  </div>
+</section>
+ <!-- Baris Sembunyikan + Filter Kelas -->
+<div class="max-w-6xl mx-auto flex items-center justify-between px-6 mb-4">
+  <!-- Tombol Sembunyikan -->
+  <button class="bg-gray-300 text-gray-700 px-4 py-2 rounded-md text-sm font-light hover:bg-gray-400 transition">
+    🔽 Sembunyikan Konten
+  </button>
+
+  <!-- Dropdown Filter Kelas -->
+  <div class="flex items-center gap-2">
+    <label for="kelas" class="text-sm font-light text-gray-700">Filter Kelas:</label>
+    <select id="kelas" name="kelas" class="px-3 py-2 border rounded-md text-sm font-light">
+      <option value="1A">Kelas 1A</option>
+      <option value="1B">Kelas 1B</option>
+      <option value="2A">Kelas 2A</option>
+      <option value="2B">Kelas 2B</option>
+      <option value="3A">Kelas 3A</option>
+      <option value="3B">Kelas 3B</option>
+      <option value="4A">Kelas 4A</option>
+      <option value="4B">Kelas 4B</option>
+      <option value="5A">Kelas 5A</option>
+      <option value="5B">Kelas 5B</option>
+      <option value="6A">Kelas 6A</option>
+      <option value="6B">Kelas 6B</option>
+    </select>
+  </div>
+</div>
+
+<!-- Kartu Konten Berdasarkan Filter Kelas -->
+<section class="max-w-6xl mx-auto flex gap-6 p-6">
+  <!-- Pemasukan Kelas -->
+  <div class="flex-1 bg-green-100 shadow-md rounded-lg p-4 text-center">
+    <h3 class="text-sm font-light text-gray-700">Pemasukan Kelas</h3>
+    <p class="text-xl font-extrabold text-green-600">Rp 0</p>
+  </div>
+
+  <!-- Pengeluaran Kelas -->
+  <div class="flex-1 bg-red-100 shadow-md rounded-lg p-4 text-center">
+    <h3 class="text-sm font-light text-gray-700">Pengeluaran Kelas</h3>
+    <p class="text-xl font-extrabold text-red-600">Rp 0</p>
+  </div>
+
+  <!-- Saldo Kelas -->
+  <div class="flex-1 bg-blue-100 shadow-md rounded-lg p-4 text-center">
+    <h3 class="text-sm font-light text-gray-700">Saldo Kelas</h3>
+    <p class="text-xl font-extrabold text-blue-600">Rp 0</p>
+  </div>
+</section>
+
+<!-- Tab Aksi -->
+<div class="max-w-6xl mx-auto flex items-center justify-center gap-3 px-6 mb-6 bg-white shadow-md rounded-lg py-2">
+  <!-- Tambah Transaksi -->
+  <button class="flex items-center gap-1 bg-blue-600 text-white px-3 py-1 rounded-md text-sm font-light hover:bg-blue-700 transition">
+    ➕ Tambah
+  </button>
+
+  <!-- Separator -->
+  <span class="text-gray-400">•</span>
+
+  <!-- Hapus Data (konfirmasi) -->
+  <button onclick="confirm('Apakah yakin ingin menghapus data?')" 
+          class="flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded-md text-sm font-light hover:bg-red-700 transition">
+    🗑️ Hapus
+  </button>
+
+  <!-- Separator -->
+  <span class="text-gray-400">•</span>
+
+  <!-- Print -->
+  <button class="flex items-center gap-1 bg-green-600 text-white px-3 py-1 rounded-md text-sm font-light hover:bg-green-700 transition">
+    🖨️ Print
+  </button>
+
+  <!-- Separator -->
+  <span class="text-gray-400">•</span>
+
+  <!-- Refresh -->
+  <button onclick="confirm('Apakah yakin ingin mereset data?')" 
+          class="flex items-center gap-1 bg-yellow-500 text-white px-3 py-1 rounded-md text-sm font-light hover:bg-yellow-600 transition">
+    🔄 Refresh
+  </button>
+</div>
+  <!-- Tabel Data -->
+  <section class="max-w-6xl mx-auto px-6 pb-10">
+    <div class="bg-white shadow-lg rounded-lg overflow-x-auto">
+      <table class="min-w-full text-sm text-left text-gray-700">
+        <thead class="bg-blue-600 text-white">
+          <tr>
+            <th class="px-4 py-2">Tanggal</th>
+            <th class="px-4 py-2">Kategori</th>
+            <th class="px-4 py-2">Keterangan</th>
+            <th class="px-4 py-2">Pemasukan</th>
+            <th class="px-4 py-2">Pengeluaran</th>
+            <th class="px-4 py-2">Saldo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b">
+            <td class="px-4 py-2">-</td>
+            <td class="px-4 py-2">-</td>
+            <td class="px-4 py-2">-</td>
+            <td class="px-4 py-2">Rp 0</td>
+            <td class="px-4 py-2">Rp 0</td>
+            <td class="px-4 py-2">Rp 0</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</body>
+</html>
