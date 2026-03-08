@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to ToolPix!</title>
+    <title>Modern Login Page</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,6 +12,15 @@
             color: #333;
             background-color: #f4f4f9;
             padding: 50px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
@@ -25,9 +34,18 @@
 </head>
 
 <body>
-    <h2>Hello from ToolPix AI-Powered HTML Editor!</h2>
-    <p>Start coding your web page here.</p>
-    <p>Click <b>Run</b> to see the changes.</p>
+    <div class="container">
+        <h1>PEMERINTAH KABUPATEN WONOSOBO</h1>
+        <h2>DINAS PENDIDIKAN PEMUDA DAN OLAHRAGA</h2>
+        <h3>SD NEGERI WONOKERTO</h3>
+        <form>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username"><br><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password"><br><br>
+            <button type="submit">Login</button>
+        </form>
+    </div>
 </body>
 
 </html>
