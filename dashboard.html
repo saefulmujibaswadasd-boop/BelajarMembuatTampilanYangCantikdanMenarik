@@ -25,17 +25,18 @@
       </header>
 
   <!-- Menu Tab -->
-  <nav class="bg-white shadow-md py-3 px-6 flex flex-wrap justify-center gap-2 overflow-x-auto">
-    <button class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md hover:bg-blue-600 hover:text-white transition">🛡️ Satpam</button>
-    <button class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md hover:bg-green-600 hover:text-white transition">🏕️ Pramuka</button>
-    <button class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md hover:bg-yellow-500 hover:text-white transition">📘 LKS</button>
-    <button class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md hover:bg-pink-500 hover:text-white transition">❤️ Amal</button>
-    <button class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md hover:bg-purple-600 hover:text-white transition">📚 Buku</button>
-    <button class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md hover:bg-red-500 hover:text-white transition">🍳 Dapur</button>
-    <button class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md hover:bg-indigo-600 hover:text-white transition">🎶 MBG</button>
-    <button class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md hover:bg-gray-600 hover:text-white transition">⚡ Perubahan</button>
-  </nav>
+<nav class="bg-white shadow-md py-3 px-6 flex flex-wrap justify-center gap-2 overflow-x-auto">
+  <button onclick="showTable('splab')" class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md hover:bg-blue-600 hover:text-white transition">🛡️ Satpam</button>
+  <button onclick="showTable('splab')" class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md hover:bg-green-600 hover:text-white transition">🏕️ Pramuka</button>
+  <button onclick="showTable('splab')" class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md hover:bg-yellow-500 hover:text-white transition">📘 LKS</button>
+  <button onclick="showTable('splab')" class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md hover:bg-pink-500 hover:text-white transition">❤️ Amal</button>
+  <button onclick="showTable('splab')" class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md hover:bg-purple-600 hover:text-white transition">📚 Buku</button>
 
+  <button onclick="showTable('mdp')" class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md hover:bg-red-500 hover:text-white transition">🍳 Dapur</button>
+  <button onclick="showTable('mdp')" class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md hover:bg-indigo-600 hover:text-white transition">🎶 MBG</button>
+  <button onclick="showTable('mdp')" class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md hover:bg-gray-600 hover:text-white transition">⚡ Perubahan</button>
+</nav>
+ 
   <!-- Kartu Ringkasan -->
   <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6 max-w-6xl mx-auto">
     <div class="bg-green-100 rounded-lg p-4 text-center shadow-md">
@@ -97,38 +98,88 @@
     <button onclick="confirm('Apakah yakin ingin mereset data?')" class="flex items-center gap-1 bg-yellow-500 text-white px-3 py-1 rounded-md text-sm font-light hover:bg-yellow-600 transition">🔄 Refresh</button>
   </div>
 
-     <!-- Tabel Data -->
-  <section class="max-w-6xl mx-auto px-6 pb-10">
-    <div class="bg-white shadow-lg rounded-lg overflow-x-auto">
-      <table class="min-w-full text-sm text-left text-gray-700">
-        <thead class="bg-blue-600 text-white">
-          <tr>
-            <th class="px-4 py-2">Tanggal</th>
-            <th class="px-4 py-2">Kategori</th>
-            <th class="px-4 py-2">Keterangan</th>
-            <th class="px-4 py-2">Pemasukan</th>
-            <th class="px-4 py-2">Pengeluaran</th>
-            <th class="px-4 py-2">Saldo</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="border-b">
-            <td class="px-4 py-2">-</td>
-            <td class="px-4 py-2">-</td>
-            <td class="px-4 py-2">-</td>
-            <td class="px-4 py-2">Rp 0</td>
-            <td class="px-4 py-2">Rp 0</td>
-            <td class="px-4 py-2">Rp 0</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+    <!-- Tabel untuk Satpam/Pramuka/LKS/Amal/Buku -->
+<div id="tabel-splab" class="hidden max-w-6xl mx-auto px-6 pb-10">
+  <div class="bg-white shadow-lg rounded-lg overflow-x-auto">
+    <table class="min-w-full text-sm text-left text-gray-700">
+      <thead class="bg-blue-600 text-white">
+        <tr>
+          <th class="px-4 py-2">Tanggal</th>
+          <th class="px-4 py-2">Uraian</th>
+          <th class="px-4 py-2">Quantity</th>
+          <th class="px-4 py-2">Jumlah</th>
+          <th class="px-4 py-2">Kelas</th>
+          <th class="px-4 py-2">Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-b">
+          <td class="px-4 py-2">-</td>
+          <td class="px-4 py-2">-</td>
+          <td class="px-4 py-2">-</td>
+          <td class="px-4 py-2">Rp 0</td>
+          <td class="px-4 py-2">-</td>
+          <td class="px-4 py-2">
+            <select class="border rounded px-2 py-1 text-sm">
+              <option>Edit</option>
+              <option>Hapus</option>
+            </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
+<!-- Tabel untuk MBG/Dapur/Perubahan -->
+<div id="tabel-mdp" class="hidden max-w-6xl mx-auto px-6 pb-10">
+  <div class="bg-white shadow-lg rounded-lg overflow-x-auto">
+    <table class="min-w-full text-sm text-left text-gray-700">
+      <thead class="bg-blue-600 text-white">
+        <tr>
+          <th class="px-4 py-2">Tanggal</th>
+          <th class="px-4 py-2">Uraian</th>
+          <th class="px-4 py-2">Quantity</th>
+          <th class="px-4 py-2">Jumlah</th>
+          <th class="px-4 py-2">Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-b">
+          <td class="px-4 py-2">-</td>
+          <td class="px-4 py-2">-</td>
+          <td class="px-4 py-2">-</td>
+          <td class="px-4 py-2">Rp 0</td>
+          <td class="px-4 py-2">
+            <select class="border rounded px-2 py-1 text-sm">
+              <option>Edit</option>
+              <option>Hapus</option>
+            </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
   <!-- Footer -->
   <footer class="bg-blue-600 text-white text-center py-4 mt-auto">
     <p class="text-sm">&copy; 2026 SD NEGERI WONOKERTO - Sistem Keuangan Sekolah</p>
   </footer>
+<script>
+  function showTable(type) {
+    // sembunyikan semua tabel
+    document.getElementById("tabel-splab").classList.add("hidden");
+    document.getElementById("tabel-mdp").classList.add("hidden");
 
+    // tampilkan sesuai kategori
+    if (type === "splab") {
+      document.getElementById("tabel-splab").classList.remove("hidden");
+    } else if (type === "mdp") {
+      document.getElementById("tabel-mdp").classList.remove("hidden");
+    }
+  }
+</script>
+</body>
+</html>
 </body>
 </html>
