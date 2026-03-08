@@ -6,38 +6,7 @@
   <title>Login - SD NEGERI WONOKERTO</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-blue-50 flex items-center justify-center min-h-screen">
-  <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-sm">
-    <h2 class="text-xl font-bold text-center mb-6">Login Sistem Keuangan</h2>
-    <form onsubmit="return login()" class="flex flex-col gap-4">
-      <input type="text" id="username" placeholder="Username" 
-             class="border rounded-md px-3 py-2 text-sm" required>
-      <input type="password" id="password" placeholder="Password" 
-             class="border rounded-md px-3 py-2 text-sm" required>
-      <button type="submit" 
-              class="bg-blue-600 text-white py-2 rounded-md text-sm hover:bg-blue-700 transition">
-        Login
-      </button>
-    </form>
-  </div>
-
-  <script>
-    function login() {
-      const user = document.getElementById("username").value;
-      const pass = document.getElementById("password").value;
-
-      // Validasi sederhana
-      if (user === "admin" && pass === "1234") {
-        window.location.href = "dashboard.html"; // pindah ke dashboard
-        return false; // cegah reload form
-      } else {
-        alert("Username atau password salah!");
-        return false;
-      }
-    }
-  </script>
-</body>
-</html>
+<body class="bg-blue-100 min-h-screen flex flex-col">
 
   <!-- Header -->
   <header class="bg-blue-600 text-white py-6 shadow-md flex justify-center">
@@ -46,39 +15,51 @@
       <h2 class="text-xl font-bold">DI APLIKASI SD NEGERI WONOKERTO</h2>
     </div>
   </header>
- <!-- Konten Utama -->
+
+  <!-- Konten Utama -->
   <main class="flex-grow flex flex-col items-center justify-center space-y-6">
     <!-- Kutipan -->
     <h1 class="text-2xl font-bold text-center">
       "BINALAH DIRIMU MENJADI ORANG YANG BERKALIBER TINGGI"
     </h1>
-         <form class="flex flex-col items-center">
-       
-<!-- Username -->
-    <div class="text-1x1 font text-center">
-      <label for=class="block text-gray-700 font-small mb-1"></label>
-      <input type="text" id="username" name="username" 
-             class="w-full px-3 py-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" 
-             placeholder="Masukkan username">
-    </div>
 
-          <!-- Password -->
-    <div class="text-1x1 font text-center">
-      <label for="password" class="block text-gray-700 font-medium mb-1"></label>
-      <input type="password" id="password" name="password" 
-             class="w-full px-3 py-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" 
-             placeholder="Masukkan password">
+    <!-- Form Login -->
+    <form onsubmit="return login()" class="flex flex-col items-center gap-4 w-64">
+      <!-- Username -->
+      <input type="text" id="username" name="username"
+             class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm"
+             placeholder="Masukkan username" required>
 
-        <!-- Tombol Login -->
-        <div class="text-1x1 font text-center">
-          <button type="submit" 
-                  class="w-full bg-blue-600 text-white py-1 rounded-lg font-semibold hover:bg-blue-700 transition">
-            Login
-          </button>
-        </div>
-      </form>
-    </div>
+      <!-- Password -->
+      <input type="password" id="password" name="password"
+             class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm"
+             placeholder="Masukkan password" required>
+
+      <!-- Tombol Login -->
+      <button type="submit"
+              class="w-full bg-blue-600 text-white py-2 rounded-lg text-sm font-semibold hover:bg-blue-700 transition">
+        Login
+      </button>
+
+      <!-- Pesan Error -->
+      <p id="error" class="text-red-600 text-sm mt-2 hidden">Username atau password salah!</p>
+    </form>
   </main>
 
+  <script>
+    function login() {
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+      const errorMsg = document.getElementById("error");
+
+      if (user === "admin" && pass === "1234") {
+        window.location.href = "dashboard.html"; // pindah ke dashboard
+        return false;
+      } else {
+        errorMsg.classList.remove("hidden"); // tampilkan pesan error
+        return false;
+      }
+    }
+  </script>
 </body>
 </html>
