@@ -88,22 +88,6 @@
   </div>
 </section>
 
-    <!-- Script logika -->
-<script>
-  function showTable(type) {
-    // sembunyikan semua tabel
-    document.getElementById("tabel-splab").classList.add("hidden");
-    document.getElementById("tabel-mdp").classList.add("hidden");
-
-    // tampilkan sesuai kategori
-    if (type === "splab") {
-      document.getElementById("tabel-splab").classList.remove("hidden");
-    } else if (type === "mdp") {
-      document.getElementById("tabel-mdp").classList.remove("hidden");
-    }
-  }
-</script>
-
 <!-- Tabel untuk MBG/Dapur/Perubahan -->
 <section id="tabel-mdp" class="hidden max-w-6xl mx-auto px-4 sm:px-6 pb-10">
   <div class="bg-white shadow-lg rounded-lg overflow-x-auto w-full">
@@ -213,13 +197,26 @@
   </div>
 </section>
 
-   <!-- Footer -->
-  <footer class="bg-blue-600 text-white text-center py-4 mt-auto">
-    <p class="text-sm">&copy; 2026 | SD NEGERI WONOKERTO | KECAMATAN LEKSONO | 085323877778</p>
-  </footer>
+ <!-- Footer -->
+<footer class="bg-blue-600 text-white text-center py-4 mt-auto">
+  <p class="text-sm">&copy; 2026 | SD NEGERI WONOKERTO | KECAMATAN LEKSONO | 085323877778</p>
+</footer>
+
+<!-- Script logika -->
 <script>
- </script>
-</body>
-</html>
+  function showTable(type) {
+    // sembunyikan semua tabel
+    document.getElementById("tabel-splab").classList.add("hidden");
+    document.getElementById("tabel-mdp").classList.add("hidden");
+
+    // tampilkan sesuai kategori
+    if (type === "splab") {
+      document.getElementById("tabel-splab").classList.remove("hidden");
+    } else if (type === "mdp") {
+      document.getElementById("tabel-mdp").classList.remove("hidden");
+    }
+  }
+</script>
+
 </body>
 </html>
