@@ -31,25 +31,9 @@
   <button onclick="showTable('splab')" class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md hover:bg-yellow-500 hover:text-white transition">📘 LKS</button>
   <button onclick="showTable('splab')" class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md hover:bg-pink-500 hover:text-white transition">❤️ Amal</button>
   <button onclick="showTable('splab')" class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md hover:bg-purple-600 hover:text-white transition">📚 Buku</button>
-
   <button onclick="showTable('mdp')" class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md hover:bg-red-500 hover:text-white transition">🍳 Dapur</button>
   <button onclick="showTable('mdp')" class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md hover:bg-indigo-600 hover:text-white transition">🎶 MBG</button>
   <button onclick="showTable('mdp')" class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md hover:bg-gray-600 hover:text-white transition">⚡ Perubahan</button>
-<script>
-  function showTable(type) {
-    // sembunyikan semua tabel
-    document.getElementById("tabel-default").classList.add("hidden");
-    document.getElementById("tabel-splab").classList.add("hidden");
-    document.getElementById("tabel-mdp").classList.add("hidden");
-
-    // tampilkan sesuai kategori
-    if (type === "splab") {
-      document.getElementById("tabel-splab").classList.remove("hidden");
-    } else if (type === "mdp") {
-      document.getElementById("tabel-mdp").classList.remove("hidden");
-    }
-  }
-</script>
 </nav>
 
 <!-- Kartu Ringkasan -->
@@ -218,18 +202,22 @@
 </footer>
 
 <!-- Script logika -->
-<<script>
+<script>
   function showTable(type) {
     // sembunyikan semua tabel
-    document.getElementById("tabel-default").classList.add("hidden");
-    document.getElementById("tabel-splab").classList.add("hidden");
-    document.getElementById("tabel-mdp").classList.add("hidden");
+    const defaultTable = document.getElementById("tabel-default");
+    const splabTable = document.getElementById("tabel-splab");
+    const mdpTable = document.getElementById("tabel-mdp");
+
+    if (defaultTable) defaultTable.classList.add("hidden");
+    if (splabTable) splabTable.classList.add("hidden");
+    if (mdpTable) mdpTable.classList.add("hidden");
 
     // tampilkan sesuai kategori
-    if (type === "splab") {
-      document.getElementById("tabel-splab").classList.remove("hidden");
-    } else if (type === "mdp") {
-      document.getElementById("tabel-mdp").classList.remove("hidden");
+    if (type === "splab" && splabTable) {
+      splabTable.classList.remove("hidden");
+    } else if (type === "mdp" && mdpTable) {
+      mdpTable.classList.remove("hidden");
     }
   }
 </script>
