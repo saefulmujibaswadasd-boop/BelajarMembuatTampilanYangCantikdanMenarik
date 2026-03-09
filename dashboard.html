@@ -35,6 +35,21 @@
   <button onclick="showTable('mdp')" class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md hover:bg-red-500 hover:text-white transition">🍳 Dapur</button>
   <button onclick="showTable('mdp')" class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md hover:bg-indigo-600 hover:text-white transition">🎶 MBG</button>
   <button onclick="showTable('mdp')" class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md hover:bg-gray-600 hover:text-white transition">⚡ Perubahan</button>
+<script>
+  function showTable(type) {
+    // sembunyikan semua tabel
+    document.getElementById("tabel-default").classList.add("hidden");
+    document.getElementById("tabel-splab").classList.add("hidden");
+    document.getElementById("tabel-mdp").classList.add("hidden");
+
+    // tampilkan sesuai kategori
+    if (type === "splab") {
+      document.getElementById("tabel-splab").classList.remove("hidden");
+    } else if (type === "mdp") {
+      document.getElementById("tabel-mdp").classList.remove("hidden");
+    }
+  }
+</script>
 </nav>
 
 <!-- Kartu Ringkasan -->
