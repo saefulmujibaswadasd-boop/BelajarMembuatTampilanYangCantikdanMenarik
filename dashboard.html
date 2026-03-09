@@ -1,1 +1,166 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard SD Negeri Wonokerto</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex flex-col min-h-screen">
 
+<!-- Header -->
+<header class="bg-blue-600 text-white py-6 shadow-md text-center">
+  <h1 class="text-2xl md:text-3xl font-bold">~ SELAMAT DATANG ~</h1>
+  <h2 class="text-xl md:text-2xl font-bold">DI APLIKASI SD NEGERI WONOKERTO</h2>
+</header>
+
+<!-- Menu Tab -->
+<nav class="bg-white shadow-md py-3 px-6 flex flex-wrap justify-center gap-2 overflow-x-auto">
+  <!-- SPLAB -->
+  <button onclick="showTable('splab')" class="px-4 py-2 rounded-md hover:bg-blue-600 hover:text-white">🛡️ Satpam</button>
+  <button onclick="showTable('splab')" class="px-4 py-2 rounded-md hover:bg-green-600 hover:text-white">🏕️ Pramuka</button>
+  <button onclick="showTable('splab')" class="px-4 py-2 rounded-md hover:bg-yellow-500 hover:text-white">📘 LKS</button>
+  <button onclick="showTable('splab')" class="px-4 py-2 rounded-md hover:bg-pink-500 hover:text-white">❤️ Amal</button>
+  <button onclick="showTable('splab')" class="px-4 py-2 rounded-md hover:bg-purple-600 hover:text-white">📚 Buku</button>
+  <!-- MDP -->
+  <button onclick="showTable('mdp')" class="px-4 py-2 rounded-md hover:bg-red-500 hover:text-white">🍳 Dapur</button>
+  <button onclick="showTable('mdp')" class="px-4 py-2 rounded-md hover:bg-indigo-600 hover:text-white">🎶 MBG</button>
+  <button onclick="showTable('mdp')" class="px-4 py-2 rounded-md hover:bg-gray-600 hover:text-white">⚡ Perubahan</button>
+</nav>
+
+<!-- Kartu Ringkasan -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6 max-w-6xl mx-auto">
+  <div class="bg-green-100 rounded-lg p-4 text-center shadow-md">
+    <h3 class="text-sm font-bold text-gray-700">Total Pemasukan</h3>
+    <p class="text-xl font-extrabold text-green-600">Rp 0</p>
+  </div>
+  <div class="bg-red-100 rounded-lg p-4 text-center shadow-md">
+    <h3 class="text-sm font-bold text-gray-700">Total Pengeluaran</h3>
+    <p class="text-xl font-extrabold text-red-600">Rp 0</p>
+  </div>
+  <div class="bg-blue-100 rounded-lg p-4 text-center shadow-md">
+    <h3 class="text-sm font-bold text-gray-700">Total Saldo</h3>
+    <p class="text-xl font-extrabold text-blue-600">Rp 0</p>
+  </div>
+</section>
+
+<!-- Tabel Default (opsional, hanya muncul saat refresh) -->
+<section id="tabel-default" class="max-w-6xl mx-auto px-4 sm:px-6 pb-10">
+  <div class="bg-white shadow-lg rounded-lg overflow-x-auto w-full">
+    <table class="min-w-full text-xs sm:text-sm md:text-base text-left text-gray-700">
+      <thead class="bg-blue-600 text-white">
+        <tr>
+          <th class="px-2 sm:px-4 py-2">Tanggal</th>
+          <th class="px-2 sm:px-4 py-2">Uraian</th>
+          <th class="px-2 sm:px-4 py-2">Quantity</th>
+          <th class="px-2 sm:px-4 py-2">Jumlah</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-b">
+          <td class="px-2 sm:px-4 py-2">-</td>
+          <td class="px-2 sm:px-4 py-2">-</td>
+          <td class="px-2 sm:px-4 py-2">-</td>
+          <td class="px-2 sm:px-4 py-2">Rp 0</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Tabel SPLAB -->
+<section id="tabel-splab" class="hidden max-w-6xl mx-auto px-4 sm:px-6 pb-10">
+  <div class="bg-white shadow-lg rounded-lg overflow-x-auto w-full">
+    <table class="min-w-full text-xs sm:text-sm md:text-base text-left text-gray-700">
+      <thead class="bg-blue-600 text-white">
+        <tr>
+          <th class="px-2 sm:px-4 py-2">Tanggal</th>
+          <th class="px-2 sm:px-4 py-2">Uraian</th>
+          <th class="px-2 sm:px-4 py-2">Quantity</th>
+          <th class="px-2 sm:px-4 py-2">H.Satuan</th>
+          <th class="px-2 sm:px-4 py-2">Jumlah</th>
+          <th class="px-2 sm:px-4 py-2">Kelas</th>
+          <th class="px-2 sm:px-4 py-2">Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-b">
+          <td class="px-2 sm:px-4 py-2">-</td>
+          <td class="px-2 sm:px-4 py-2">-</td>
+          <td class="px-2 sm:px-4 py-2">-</td>
+          <td class="px-2 sm:px-4 py-2">Rp 0</td>
+          <td class="px-2 sm:px-4 py-2">Rp 0</td>
+          <td class="px-2 sm:px-4 py-2">-</td>
+          <td class="px-2 sm:px-4 py-2">
+            <select class="border rounded px-2 py-1 text-xs sm:text-sm">
+              <option>Edit</option>
+              <option>Hapus</option>
+            </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Tabel MDP -->
+<section id="tabel-mdp" class="hidden max-w-6xl mx-auto px-4 sm:px-6 pb-10">
+  <div class="bg-white shadow-lg rounded-lg overflow-x-auto w-full">
+    <table class="min-w-full text-xs sm:text-sm md:text-base text-left text-gray-700">
+      <thead class="bg-blue-600 text-white">
+        <tr>
+          <th class="px-2 sm:px-4 py-2">Tanggal</th>
+          <th class="px-2 sm:px-4 py-2">Uraian</th>
+          <th class="px-2 sm:px-4 py-2">Quantity</th>
+          <th class="px-2 sm:px-4 py-2">H.Satuan</th>
+          <th class="px-2 sm:px-4 py-2">Jumlah</th>
+          <th class="px-2 sm:px-4 py-2">Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-b">
+          <td class="px-2 sm:px-4 py-2">-</td>
+          <td class="px-2 sm:px-4 py-2">-</td>
+          <td class="px-2 sm:px-4 py-2">-</td>
+          <td class="px-2 sm:px-4 py-2">Rp 0</td>
+          <td class="px-2 sm:px-4 py-2">Rp 0</td>
+          <td class="px-2 sm:px-4 py-2">
+            <select class="border rounded px-2 py-1 text-xs sm:text-sm">
+              <option>Edit</option>
+              <option>Hapus</option>
+            </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-blue-600 text-white text-center py-4 mt-auto">
+  <p class="text-sm">&copy; 2026 | SD NEGERI WONOKERTO | KECAMATAN LEKSONO | 085323877778</p>
+</footer>
+
+<!-- Script logika -->
+<script>
+  function showTable(type) {
+    // sembunyikan semua tabel
+    const defaultTable = document.getElementById("tabel-default");
+    const splabTable = document.getElementById("tabel-splab");
+    const mdpTable = document.getElementById("tabel-mdp");
+
+    if (defaultTable) defaultTable.classList.add("hidden");
+    if (splabTable) splabTable.classList.add("hidden");
+    if (mdpTable) mdpTable.classList.add("hidden");
+
+    // tampilkan sesuai kategori
+    if (type === "splab" && splabTable) {
+      splabTable.classList.remove("hidden");
+    } else if (type === "mdp" && mdpTable) {
+      mdpTable.classList.remove("hidden");
+    }
+  }
+</script>
+
+</body>
+</html>
+   
