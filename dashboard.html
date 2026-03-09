@@ -42,7 +42,63 @@
     <p class="text-xl font-extrabold text-blue-600">Rp 0</p>
   </div>
 </section>
+<!-- Filter & Kontrol -->
+<div class="flex flex-col sm:flex-row items-center justify-between px-6 mb-4 gap-3">
+  <button onclick="toggleCards()" class="bg-gray-300 text-gray-700 px-4 py-2 rounded-md text-sm hover:bg-gray-400 transition">
+    🔽 Sembunyikan Konten
+  </button>
+  <div class="flex items-center gap-2">
+    <label for="kelas" class="text-sm text-gray-700">Kelas:</label>
+    <select id="kelas" name="kelas" class="px-3 py-2 border rounded-md text-sm">
+      <option value="all">Semua</option>
+      <option value="1A">1A</option><option value="1B">1B</option>
+      <option value="2A">2A</option><option value="2B">2B</option>
+      <option value="3A">3A</option><option value="3B">3B</option>
+      <option value="4A">4A</option><option value="4B">4B</option>
+      <option value="5A">5A</option><option value="5B">5B</option>
+      <option value="6A">6A</option><option value="6B">6B</option>
+    </select>
+  </div>
+</div>
 
+<!-- Kartu kategori -->
+<section id="cards" class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6 max-w-6xl mx-auto">
+  <div class="bg-green-100 shadow-md rounded-lg p-4 text-center">
+    <h3 class="text-sm text-gray-700">Pemasukan Kelas</h3>
+    <p id="pemasukanKelas" class="text-xl font-extrabold text-green-600">Rp 0</p>
+  </div>
+  <div class="bg-red-100 shadow-md rounded-lg p-4 text-center">
+    <h3 class="text-sm text-gray-700">Pengeluaran Kelas</h3>
+    <p id="pengeluaranKelas" class="text-xl font-extrabold text-red-600">Rp 0</p>
+  </div>
+  <div class="bg-blue-100 shadow-md rounded-lg p-4 text-center">
+    <h3 class="text-sm text-gray-700">Saldo Kelas</h3>
+    <p id="saldoKelas" class="text-xl font-extrabold text-blue-600">Rp 0</p>
+  </div>
+</section>
+
+<!-- Aksi -->
+<div class="max-w-6xl mx-auto flex flex-wrap items-center justify-center gap-3 px-6 mb-6 bg-white shadow-md rounded-lg py-2">
+  <button class="bg-blue-600 text-white px-3 py-1 rounded-md text-sm hover:bg-blue-700">➕ Tambah</button>
+  <span class="text-gray-400">•</span>
+  <button onclick="confirm('Apakah yakin ingin menghapus data?')" class="bg-red-600 text-white px-3 py-1 rounded-md text-sm hover:bg-red-700">🗑️ Hapus</button>
+  <span class="text-gray-400">•</span>
+  <button class="bg-green-600 text-white px-3 py-1 rounded-md text-sm hover:bg-green-700">🖨️ Print</button>
+  <span class="text-gray-400">•</span>
+  <button onclick="refreshTable()" class="bg-yellow-500 text-white px-3 py-1 rounded-md text-sm hover:bg-yellow-600">🔄 Refresh</button>
+</div>
+
+<!-- Paginasi -->
+<div class="flex justify-end items-center gap-2 px-6 mb-4">
+  <label for="rowsPerPage" class="text-sm text-gray-700">Tampilkan:</label>
+  <select id="rowsPerPage" onchange="changePagination()" class="px-2 py-1 border rounded-md text-sm">
+    <option value="5">5</option>
+    <option value="10" selected>10</option>
+    <option value="25">25</option>
+    <option value="50">50</option>
+  </select>
+  <span class="text-sm text-gray-700">baris</span>
+</div>
 <!-- Tabel Default (opsional, hanya muncul saat refresh) -->
 <section id="tabel-default" class="max-w-6xl mx-auto px-4 sm:px-6 pb-10">
   <div class="bg-white shadow-lg rounded-lg overflow-x-auto w-full">
@@ -159,8 +215,22 @@
       mdpTable.classList.remove("hidden");
     }
   }
+
+  function toggleCards() {
+    const cards = document.getElementById("cards");
+    cards.classList.toggle("hidden");
+  }
+
+  function refreshTable() {
+    // logika reset data tabel
+    alert("Tabel berhasil di-refresh (contoh).");
+  }
+
+  function changePagination() {
+    const rows = document.getElementById("rowsPerPage").value;
+    alert("Paginasi diubah ke " + rows + " baris per halaman (contoh).");
+  }
 </script>
 
 </body>
 </html>
-   
