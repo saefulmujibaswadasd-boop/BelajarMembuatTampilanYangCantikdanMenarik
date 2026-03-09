@@ -29,6 +29,18 @@
   <button onclick="showTable('dapur')" class="px-4 py-2 rounded-md hover:bg-red-500 hover:text-white">🍳 Dapur</button>
   <button onclick="showTable('mbg')" class="px-4 py-2 rounded-md hover:bg-indigo-600 hover:text-white">🎶 MBG</button>
   <button onclick="showTable('perubahan')" class="px-4 py-2 rounded-md hover:bg-gray-600 hover:text-white">⚡ Perubahan</button>
+function showTable(category) {
+  // Sembunyikan semua section tabel & form
+  const sections = document.querySelectorAll("section[id^='tabel-'], section[id^='form-']");
+  sections.forEach(sec => sec.classList.add("hidden"));
+
+  // Tampilkan tabel & form sesuai kategori yang dipilih
+  const tabel = document.getElementById("tabel-" + category);
+  const form = document.getElementById("form-" + category);
+
+  if (tabel) tabel.classList.remove("hidden");
+  if (form) form.classList.remove("hidden");
+}
 </nav>
 
 <!-- Ringkasan Total -->
