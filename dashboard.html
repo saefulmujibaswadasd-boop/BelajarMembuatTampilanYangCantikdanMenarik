@@ -99,7 +99,7 @@
           <option value="keluar">Keluar</option>
         </select>
       </div>
-      <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Simpan</button>
+      <button type="submit" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Simpan</button>
     </form>
   </div>
 </section>
@@ -521,8 +521,8 @@ function exportTableToPDF(sectionId, filename){
   doc.autoTable({ html: table });
   doc.save(filename + ".pdf");
 }
-
-function formatNumber(input){
+  
+  function formatNumber(input){
   let value=input.value.replace(/,/g,'');
   if(!isNaN(value)&&value!==''){input.value=Number(value).toLocaleString('en-US');}
 }
@@ -650,45 +650,23 @@ function resetTable(category) {
       totalPengeluaran -= Math.abs(saldoKategori[category]);
     }
 
-    // Reset saldo kategori
-    saldoKategori[category] = 0;
+  // Reset saldo kategori
+saldoKategori[category] = 0;
 
-    // Update ringkasan total
-    updateRingkasan();
+// Update ringkasan total
+updateRingkasan();
 
-    // Hapus data dari localStorage
-    localStorage.removeItem("data-" + category);
-    localStorage.removeItem("saldo-" + category);
+// Hapus data dari localStorage
+localStorage.removeItem("data-" + category);
+localStorage.removeItem("saldo-" + category);
   }
 }
-    // Fungsi Export ke Excel
-  function exportTableToExcel(sectionId, filename){
-    let table = document.querySelector(`#${sectionId} table`);
-    if (!table) {
-      alert("Tabel tidak ditemukan!");
-      return;
-    }
-    let wb = XLSX.utils.table_to_book(table, {sheet:"Sheet1"});
-    XLSX.writeFile(wb, filename+".xlsx");
-  }
-  
-  // Fungsi Export ke PDF
-  function exportTableToPDF(sectionId, filename){
-    let table = document.querySelector(`#${sectionId} table`);
-    if (!table) {
-      alert("Tabel tidak ditemukan!");
-      return;
-    }
-    const { jsPDF } = window.jspdf;
-    let doc = new jsPDF();
-    doc.text(filename + " Report", 10, 10);
-    doc.autoTable({ html: table });
-    doc.save(filename + ".pdf");
-  }
 </script>
 
 </body>
 </html>
+
+
 
 
 
