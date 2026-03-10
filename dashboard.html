@@ -539,21 +539,22 @@ function addTransaction(event, category) {
   const tbody = document.getElementById("tbody-" + category);
   const row = document.createElement("tr");
   row.innerHTML = `
-    <td>${today}</td>
-    <td>${uraian}</td>
-    <td>${qty}</td>
-    <td>${hsatuan.toLocaleString('en-US')}</td>
-    <td>${jumlah.toLocaleString('en-US')}</td>
-    <td>${saldoKategori[category].toLocaleString('en-US')}</td>
-    ${kelasField ? `<td>${kelas}</td>` : ""}
-    <td>
-      <select onchange="aksiBaris(this,'${category}',${nilai},'${kategori}',
-        '${uraian}',${qty},${hsatuan},'${kelas}')">
-        <option>Pilih</option>
-        <option>Edit</option>
-        <option>Hapus</option>
-      </select>
-    </td>`;
+  <td>${today}</td>
+  <td>${uraian}</td>
+  <td>${qty}</td>
+  <td>${hsatuan.toLocaleString('en-US')}</td>
+  <td>${jumlah.toLocaleString('en-US')}</td>
+  <td>${kategori}</td>
+  <td>${saldoKategori[category].toLocaleString('en-US')}</td>
+  ${kelasField ? `<td>${kelas}</td>` : ""}
+  <td>
+    <select onchange="aksiBaris(this,'${category}',${nilai},'${kategori}',
+      '${uraian}',${qty},${hsatuan},'${kelas}')">
+      <option>Pilih</option>
+      <option>Edit</option>
+      <option>Hapus</option>
+    </select>
+  </td>`;
   tbody.appendChild(row);
 
   // Kosongkan form setelah simpan
