@@ -461,222 +461,155 @@ function showTable(category){
   document.getElementById("tabel-"+category).classList.remove("hidden");
   document.getElementById("form-"+category).classList.remove("hidden");
 }
-<!-- ====== Kategori Perubahan ====== -->
-<section id="tabel-perubahan" class="hidden max-w-6xl mx-auto px-4 sm:px-6 pb-10">
-  <div class="bg-white shadow-lg rounded-lg overflow-x-auto w-full">
-    <table class="min-w-full text-sm text-left text-gray-700 border border-gray-300 border-collapse table-auto w-full">
-      <thead class="bg-gray-600 text-white">
-        <tr>
-          <th class="border px-2 py-1">Tanggal</th>
-          <th class="border px-2 py-1">Uraian</th>
-          <th class="border px-2 py-1">Qty</th>
-          <th class="border px-2 py-1">H.Satuan</th>
-          <th class="border px-2 py-1">Jumlah</th>
-          <th class="border px-2 py-1">Kategori</th>
-          <th class="border px-2 py-1">Saldo</th>
-          <th class="border px-2 py-1">Aksi</th>
-        </tr>
-      </thead>
-      <tbody id="tbody-perubahan"></tbody>
-    </table>
-    <div class="mt-4 flex gap-2">
-      <button onclick="exportTableToExcel('tabel-perubahan','Perubahan')" class="bg-green-600 text-white px-4 py-2 rounded">Excel</button>
-      <button onclick="exportTableToPDF('tabel-perubahan','Perubahan')" class="bg-red-600 text-white px-4 py-2 rounded">PDF</button>
-      <button onclick="window.print()" class="bg-blue-600 text-white px-4 py-2 rounded">Print</button>
-      <button onclick="resetTable('perubahan')" class="bg-gray-600 text-white px-4 py-2 rounded">Reset Tabel Perubahan</button>
-    </div>
-  </div>
-</section>
 
-<section id="form-perubahan" class="hidden max-w-6xl mx-auto px-4 sm:px-6 pb-10">
-  <div class="bg-white shadow-lg rounded-lg p-6">
-    <h3 class="text-lg font-bold mb-4 text-gray-600">Tambah Transaksi Perubahan</h3>
-    <form onsubmit="addTransaction(event,'perubahan')">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <input id="perubahan-uraian" placeholder="Uraian" class="border rounded px-3 py-2" required>
-        <input id="perubahan-qty" type="number" placeholder="Qty" class="border rounded px-3 py-2" required>
-        <input id="perubahan-hsatuan" type="number" placeholder="Harga Satuan" class="border rounded px-3 py-2" required>
-        <input id="perubahan-jumlah" type="hidden" required>
-        <select id="perubahan-kategori" class="border rounded px-3 py-2">
-          <option value="masuk">Masuk</option>
-          <option value="keluar">Keluar</option>
-        </select>
-      </div>
-      <button class="mt-4 bg-gray-600 text-white px-4 py-2 rounded">Simpan</button>
-    </form>
-  </div>
-</section>
-
-<!-- Footer -->
-<footer class="bg-blue-600 text-white text-center py-4 mt-auto">
-  <p class="text-sm">&copy; 2026 | SD NEGERI WONOKERTO | KECAMATAN LEKSONO | 085323877778</p>
-</footer>
-
-<!-- Script Generik -->
-<script>
-let saldoKategori = {
-  satpam: 0, pramuka: 0, lks: 0, amal: 0,
-  buku: 0, dapur: 0, mbg: 0, perubahan: 0
-};
-let totalPemasukan = 0;
-let totalPengeluaran = 0;
-
-function showTable(category){
-  document.querySelectorAll("section[id^='tabel-']").forEach(t=>t.classList.add("hidden"));
-  document.querySelectorAll("section[id^='form-']").forEach(f=>f.classList.add("hidden"));
-  document.getElementById("tabel-"+category).classList.remove("hidden");
-  document.getElementById("form-"+category).classList.remove("hidden");
+function formatNumber(input){
+  let value=input.value.replace(/,/g,'');
+  if(!isNaN(value)&&value!==''){input.value=Number(value).toLocaleString('en-US');}
 }
 
-// ===== Tambah Transaksi =====
-function addTransaction(event, category){
-  event.preventDefault();
-  const uraian   = document.getElementById(category+"-uraian").value;
-  const qty      = parseFloat(document.getElementById(category+"-qty").value);
-  const hsatuan  = parseFloat(document.getElementById(category+"-hsatuan").value);
-  const jumlah   = qty * hsatuan;
-  const kategori = document.getElementById(category+"-kategori").value;
+function hitungJumlah(category){
+  const qty = parseFloat(document.getElementById(category+"-qty").value) || 0;
+  const hsatuan = parseFloat(document.getElementById(category+"-hsatuan").value) || 0;
+  const jumlah = qty * hsatuan;
+  document.getElementById(category+"-jumlah").value = jumlah.toLocaleString('en-US');
+}
 
-  // update saldo kategori
-  if(kategori === "masuk"){
-    saldoKategori[category] += jumlah;
-    totalPemasukan += jumlah;
+function addTransaction(event, category) {
+  event.preventDefault();
+  const today = new Date().toLocaleDateString('id-ID');
+  const uraian = document.getElementById(category + "-uraian").value;
+  const qty = parseFloat(document.getElementById(category + "-qty").value) || 0;
+  const hsatuan = parseFloat(document.getElementById(category + "-hsatuan").value) || 0;
+  const jumlah = qty * hsatuan;
+
+  const kelasField = document.getElementById(category + "-kelas");
+  const kelas = kelasField ? kelasField.value : "-";
+
+  const kategoriField = document.getElementById(category + "-kategori");
+  const kategori = kategoriField ? kategoriField.value : "masuk";
+
+  let nilai = jumlah;
+  if (kategori === "masuk") {
+    saldoKategori[category] += nilai;
+    totalPemasukan += nilai;
   } else {
-    saldoKategori[category] -= jumlah;
-    totalPengeluaran += jumlah;
+    saldoKategori[category] -= nilai;
+    totalPengeluaran += nilai;
   }
 
-  // update ringkasan total
-  document.getElementById("total-pemasukan").textContent = "Rp " + totalPemasukan.toLocaleString();
-  document.getElementById("total-pengeluaran").textContent = "Rp " + totalPengeluaran.toLocaleString();
-  document.getElementById("total-saldo").textContent = "Rp " + (totalPemasukan - totalPengeluaran).toLocaleString();
+  updateRingkasan();
 
-  const tbody = document.getElementById("tbody-"+category);
-  const tr = document.createElement("tr");
-  tr.innerHTML = `
-    <td class="border px-2 py-1">${new Date().toLocaleDateString()}</td>
-    <td class="border px-2 py-1">${uraian}</td>
-    <td class="border px-2 py-1">${qty}</td>
-    <td class="border px-2 py-1">Rp ${hsatuan.toLocaleString()}</td>
-    <td class="border px-2 py-1">Rp ${jumlah.toLocaleString()}</td>
-    <td class="border px-2 py-1">${kategori}</td>
-    <td class="border px-2 py-1">Rp ${saldoKategori[category].toLocaleString()}</td>
-    <td class="border px-2 py-1">
-      <button onclick="this.closest('tr').remove()" class="bg-red-500 text-white px-2 py-1 rounded">Hapus</button>
-    </td>
-  `;
-  tbody.appendChild(tr);
+  const tbody = document.getElementById("tbody-" + category);
+  const row = document.createElement("tr");
+  row.innerHTML = `
+    <td>${today}</td>
+    <td>${uraian}</td>
+    <td>${qty}</td>
+    <td>${hsatuan.toLocaleString('en-US')}</td>
+    <td>${jumlah.toLocaleString('en-US')}</td>
+    <td>${kategori}</td>
+    <td>${saldoKategori[category].toLocaleString('en-US')}</td>
+    ${kelasField ? `<td>${kelas}</td>` : ""}
+    <td>
+      <select onchange="aksiBaris(this,'${category}',${nilai},'${kategori}','${uraian}',${qty},${hsatuan},'${kelas}')">
+        <option>Pilih</option>
+        <option>Edit</option>
+        <option>Hapus</option>
+      </select>
+    </td>`;
+  tbody.appendChild(row);
 
   event.target.reset();
+  document.getElementById(category + "-jumlah").value = "";
+  saveData(category);
 }
 
-<!-- ====== Kategori Perubahan ====== -->
-<section id="tabel-perubahan" class="hidden max-w-6xl mx-auto px-4 sm:px-6 pb-10">
-  <div class="bg-white shadow-lg rounded-lg overflow-x-auto w-full">
-    <table class="min-w-full text-sm text-left text-gray-700 border border-gray-300 border-collapse table-auto w-full">
-      <thead class="bg-gray-600 text-white">
-        <tr>
-          <th class="border px-2 py-1">Tanggal</th>
-          <th class="border px-2 py-1">Uraian</th>
-          <th class="border px-2 py-1">Qty</th>
-          <th class="border px-2 py-1">H.Satuan</th>
-          <th class="border px-2 py-1">Jumlah</th>
-          <th class="border px-2 py-1">Kategori</th>
-          <th class="border px-2 py-1">Saldo</th>
-          <th class="border px-2 py-1">Aksi</th>
-        </tr>
-      </thead>
-      <tbody id="tbody-perubahan"></tbody>
-    </table>
-    <div class="mt-4 flex gap-2">
-      <button onclick="exportTableToExcel('tabel-perubahan','Perubahan')" class="bg-green-600 text-white px-4 py-2 rounded">Excel</button>
-      <button onclick="exportTableToPDF('tabel-perubahan','Perubahan')" class="bg-red-600 text-white px-4 py-2 rounded">PDF</button>
-      <button onclick="window.print()" class="bg-blue-600 text-white px-4 py-2 rounded">Print</button>
-      <button onclick="resetTable('perubahan')" class="bg-gray-600 text-white px-4 py-2 rounded">Reset Tabel Perubahan</button>
-    </div>
-  </div>
-</section>
+function aksiBaris(selectEl, category, nilai, kategori, uraian, qty, hsatuan, kelas) {
+  if (selectEl.value === 'Hapus') {
+    hapusBaris(selectEl, category, nilai, kategori);
+  } else if (selectEl.value === 'Edit') {
+    document.getElementById(category + "-uraian").value = uraian;
+    document.getElementById(category + "-qty").value = qty;
+    document.getElementById(category + "-hsatuan").value = hsatuan;
+    document.getElementById(category + "-jumlah").value = (qty * hsatuan).toLocaleString('en-US');
 
-<section id="form-perubahan" class="hidden max-w-6xl mx-auto px-4 sm:px-6 pb-10">
-  <div class="bg-white shadow-lg rounded-lg p-6">
-    <h3 class="text-lg font-bold mb-4 text-gray-600">Tambah Transaksi Perubahan</h3>
-    <form onsubmit="addTransaction(event,'perubahan')">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <input id="perubahan-uraian" placeholder="Uraian" class="border rounded px-3 py-2" required>
-        <input id="perubahan-qty" type="number" placeholder="Qty" class="border rounded px-3 py-2" required>
-        <input id="perubahan-hsatuan" type="number" placeholder="Harga Satuan" class="border rounded px-3 py-2" required>
-        <input id="perubahan-jumlah" type="hidden" required>
-        <select id="perubahan-kategori" class="border rounded px-3 py-2">
-          <option value="masuk">Masuk</option>
-          <option value="keluar">Keluar</option>
-        </select>
-      </div>
-      <button class="mt-4 bg-gray-600 text-white px-4 py-2 rounded">Simpan</button>
-    </form>
-  </div>
-</section>
+    const kategoriField = document.getElementById(category + "-kategori");
+    if (kategoriField) { kategoriField.value = kategori; }
+    if (kategori === "masuk") {
+      saldoKategori[category] -= nilai;
+      totalPemasukan -= nilai;
+    } else {
+      saldoKategori[category] += nilai;
+      totalPengeluaran -= nilai;
+    }
+    updateRingkasan();
 
-<!-- Footer -->
-<footer class="bg-blue-600 text-white text-center py-4 mt-auto">
-  <p class="text-sm">&copy; 2026 | SD NEGERI WONOKERTO | KECAMATAN LEKSONO | 085323877778</p>
-</footer>
-
-<!-- Script Generik -->
-<script>
-let saldoKategori = {
-  satpam: 0, pramuka: 0, lks: 0, amal: 0,
-  buku: 0, dapur: 0, mbg: 0, perubahan: 0
-};
-let totalPemasukan = 0;
-let totalPengeluaran = 0;
-
-function showTable(category){
-  document.querySelectorAll("section[id^='tabel-']").forEach(t=>t.classList.add("hidden"));
-  document.querySelectorAll("section[id^='form-']").forEach(f=>f.classList.add("hidden"));
-  document.getElementById("tabel-"+category).classList.remove("hidden");
-  document.getElementById("form-"+category).classList.remove("hidden");
-}
-
-// ===== Tambah Transaksi =====
-function addTransaction(event, category){
-  event.preventDefault();
-  const uraian   = document.getElementById(category+"-uraian").value;
-  const qty      = parseFloat(document.getElementById(category+"-qty").value);
-  const hsatuan  = parseFloat(document.getElementById(category+"-hsatuan").value);
-  const jumlah   = qty * hsatuan;
-  const kategori = document.getElementById(category+"-kategori").value;
-
-  // update saldo kategori
-  if(kategori === "masuk"){
-    saldoKategori[category] += jumlah;
-    totalPemasukan += jumlah;
-  } else {
-    saldoKategori[category] -= jumlah;
-    totalPengeluaran += jumlah;
+    selectEl.closest('tr').remove();
+    saveData(category);
   }
+}
 
-  // update ringkasan total
-  document.getElementById("total-pemasukan").textContent = "Rp " + totalPemasukan.toLocaleString();
-  document.getElementById("total-pengeluaran").textContent = "Rp " + totalPengeluaran.toLocaleString();
-  document.getElementById("total-saldo").textContent = "Rp " + (totalPemasukan - totalPengeluaran).toLocaleString();
+function hapusBaris(selectEl, category, nilai, kategori){
+  if (kategori === "masuk") {
+    saldoKategori[category] -= nilai;
+    totalPemasukan -= nilai;
+  } else {
+    saldoKategori[category] += nilai;
+    totalPengeluaran -= nilai;
+  }
+  updateRingkasan();
+  selectEl.closest('tr').remove();
+  saveData(category);
+}
 
-  const tbody = document.getElementById("tbody-"+category);
-  const tr = document.createElement("tr");
-  tr.innerHTML = `
-    <td class="border px-2 py-1">${new Date().toLocaleDateString()}</td>
-    <td class="border px-2 py-1">${uraian}</td>
-    <td class="border px-2 py-1">${qty}</td>
-    <td class="border px-2 py-1">Rp ${hsatuan.toLocaleString()}</td>
-    <td class="border px-2 py-1">Rp ${jumlah.toLocaleString()}</td>
-    <td class="border px-2 py-1">${kategori}</td>
-    <td class="border px-2 py-1">Rp ${saldoKategori[category].toLocaleString()}</td>
-    <td class="border px-2 py-1">
-      <button onclick="this.closest('tr').remove()" class="bg-red-500 text-white px-2 py-1 rounded">Hapus</button>
-    </td>
-  `;
-  tbody.appendChild(tr);
+function updateRingkasan(){
+  document.getElementById("total-pemasukan").textContent = "Rp " + totalPemasukan.toLocaleString('id-ID');
+  document.getElementById("total-pengeluaran").textContent = "Rp " + totalPengeluaran.toLocaleString('id-ID');
+  document.getElementById("total-saldo").textContent = "Rp " + (totalPemasukan - totalPengeluaran).toLocaleString('id-ID');
+}
 
-  event.target.reset();
+function resetTable(category) {
+  const yakin = confirm(
+    "Apakah Anda yakin akan menghapus semua data yang ada di tabel " + category.toUpperCase() + " ?"
+  );
+
+  if (yakin) {
+    const tbody = document.getElementById("tbody-" + category);
+    tbody.innerHTML = "";
+
+    // Kurangi total sesuai saldo kategori yang dihapus
+    if (saldoKategori[category] > 0) {
+      totalPemasukan -= saldoKategori[category];
+    } else {
+      totalPengeluaran -= Math.abs(saldoKategori[category]);
+    }
+
+    // Reset saldo kategori
+    saldoKategori[category] = 0;
+
+    // Update ringkasan total
+    updateRingkasan();
+
+    // Hapus data dari localStorage
+    localStorage.removeItem("data-" + category);
+    localStorage.removeItem("saldo-" + category);
+  }
+}
+
+// ===== Simpan & Muat Data LocalStorage =====
+function saveData(category){
+  const tbody = document.getElementById("tbody-" + category);
+  localStorage.setItem("data-" + category, tbody.innerHTML);
+  localStorage.setItem("saldo-" + category, saldoKategori[category]);
+}
+
+function loadData(category){
+  const tbody = document.getElementById("tbody-" + category);
+  const data = localStorage.getItem("data-" + category);
+  const saldo = localStorage.getItem("saldo-" + category);
+  if(data){ tbody.innerHTML = data; }
+  if(saldo){ saldoKategori[category] = parseFloat(saldo); }
+  updateRingkasan();
 }
 
 // ===== Export Excel =====
@@ -702,20 +635,13 @@ function exportTableToPDF(tableId, filename){
   doc.save(filename+".pdf");
 }
 
-// ===== Reset Tabel =====
-function resetTable(category){
-  document.getElementById("tbody-"+category).innerHTML = "";
-  saldoKategori[category] = 0;
-  // update ringkasan total setelah reset
-  document.getElementById("total-pemasukan").textContent = "Rp " + totalPemasukan.toLocaleString();
-  document.getElementById("total-pengeluaran").textContent = "Rp " + totalPengeluaran.toLocaleString();
-  document.getElementById("total-saldo").textContent = "Rp " + (totalPemasukan - totalPengeluaran).toLocaleString();
-}
+// ===== Muat Data Semua Kategori Saat Load =====
+window.onload = function(){
+  Object.keys(saldoKategori).forEach(cat => loadData(cat));
+};
 </script>
 </body>
 </html>
-
-
 
 
   
