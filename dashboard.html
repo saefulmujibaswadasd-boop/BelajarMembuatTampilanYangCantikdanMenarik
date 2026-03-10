@@ -50,11 +50,7 @@
 
 <!-- ====== Kategori Satpam ====== -->
 <section id="tabel-satpam" class="hidden max-w-6xl mx-auto px-4 sm:px-6 pb-10">
-<section id="tabel-satpam" class="hidden">Tabel Satpam</section>
-<section id="form-satpam" class="hidden">Form Satpam</section>
-  
   <div class="bg-white shadow-lg rounded-lg overflow-x-auto w-full">
-    <!-- Tabel bergaris -->
     <table class="min-w-full text-sm text-left text-gray-700 border border-gray-300 border-collapse table-auto w-full">
       <thead class="bg-blue-600 text-white">
         <tr>
@@ -91,6 +87,22 @@
         <input id="satpam-hsatuan" type="number" placeholder="Harga Satuan" class="border rounded px-3 py-2" required>
         <input id="satpam-jumlah" type="number" placeholder="Jumlah (+/-)" class="border rounded px-3 py-2" required>
         
+        <!-- Pilihan kelas -->
+        <select id="satpam-kelas" class="border rounded px-3 py-2">
+          <option value="1A">1A</option>
+          <option value="1B">1B</option>
+        </select>
+        
+        <!-- Pilihan kategori masuk/keluar -->
+        <select id="satpam-kategori" class="border rounded px-3 py-2">
+          <option value="masuk">Masuk</option>
+          <option value="keluar">Keluar</option>
+        </select>
+      </div>
+      <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Simpan</button>
+    </form>
+  </div>
+</section>
         <!-- Pilihan kelas -->
         <select id="satpam-kelas" class="border rounded px-3 py-2">
           <option value="1A">1A</option>
