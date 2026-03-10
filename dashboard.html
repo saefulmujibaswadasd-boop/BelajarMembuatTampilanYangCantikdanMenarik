@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Dashboard SD Negeri Wonokerto</title>
-    <style>
+  <style>
     .hidden { display: none; }
   </style>
   <link href="output.css" rel="stylesheet">
@@ -103,22 +103,19 @@
     </form>
   </div>
 </section>
-        <!-- Pilihan kelas -->
-        <select id="satpam-kelas" class="border rounded px-3 py-2">
-          <option value="1A">1A</option>
-          <option value="1B">1B</option>
-        </select>
-        
-        <!-- Pilihan kategori masuk/keluar -->
-        <select id="satpam-kategori" class="border rounded px-3 py-2">
-          <option value="masuk">Masuk</option>
-          <option value="keluar">Keluar</option>
-        </select>
-      </div>
-      <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Simpan</button>
-    </form>
-  </div>
-</section>
+
+<!-- Script Navigasi -->
+<script>
+function showTable(category){
+  document.querySelectorAll("section[id^='tabel-']").forEach(t=>t.classList.add("hidden"));
+  document.querySelectorAll("section[id^='form-']").forEach(f=>f.classList.add("hidden"));
+  document.getElementById("tabel-"+category).classList.remove("hidden");
+  document.getElementById("form-"+category).classList.remove("hidden");
+}
+</script>
+
+</body>
+</html>
 <!-- ====== Kategori Pramuka ====== -->
 <section id="tabel-pramuka" class="hidden max-w-6xl mx-auto px-4 sm:px-6 pb-10">
   <div class="bg-white shadow-lg rounded-lg overflow-x-auto w-full">
@@ -173,6 +170,7 @@
     </form>
   </div>
 </section>
+
 <!-- ====== Kategori LKS ====== -->
 <section id="tabel-lks" class="hidden max-w-6xl mx-auto px-4 sm:px-6 pb-10">
   <div class="bg-white shadow-lg rounded-lg overflow-x-auto w-full">
@@ -281,6 +279,7 @@
     </form>
   </div>
 </section>
+
 <!-- ====== Kategori Buku ====== -->
 <section id="tabel-buku" class="hidden max-w-6xl mx-auto px-4 sm:px-6 pb-10">
   <div class="bg-white shadow-lg rounded-lg overflow-x-auto w-full">
@@ -335,7 +334,6 @@
     </form>
   </div>
 </section>
-
 <!-- ====== Kategori Dapur ====== -->
 <section id="tabel-dapur" class="hidden max-w-6xl mx-auto px-4 sm:px-6 pb-10">
   <div class="bg-white shadow-lg rounded-lg overflow-x-auto w-full">
@@ -372,6 +370,8 @@
         <input id="dapur-qty" type="number" placeholder="Qty" class="border rounded px-3 py-2" required>
         <input id="dapur-hsatuan" type="number" placeholder="Harga Satuan" class="border rounded px-3 py-2" required>
         <input id="dapur-jumlah" type="number" placeholder="Jumlah (+/-)" class="border rounded px-3 py-2" required>
+        
+        <!-- Pilihan kategori masuk/keluar -->
         <select id="dapur-kategori" class="border rounded px-3 py-2">
           <option value="masuk">Masuk</option>
           <option value="keluar">Keluar</option>
@@ -381,6 +381,7 @@
     </form>
   </div>
 </section>
+
 <!-- ====== Kategori MBG ====== -->
 <section id="tabel-mbg" class="hidden max-w-6xl mx-auto px-4 sm:px-6 pb-10">
   <div class="bg-white shadow-lg rounded-lg overflow-x-auto w-full">
@@ -417,6 +418,8 @@
         <input id="mbg-qty" type="number" placeholder="Qty" class="border rounded px-3 py-2" required>
         <input id="mbg-hsatuan" type="number" placeholder="Harga Satuan" class="border rounded px-3 py-2" required>
         <input id="mbg-jumlah" type="number" placeholder="Jumlah (+/-)" class="border rounded px-3 py-2" required>
+        
+        <!-- Pilihan kategori masuk/keluar -->
         <select id="mbg-kategori" class="border rounded px-3 py-2">
           <option value="masuk">Masuk</option>
           <option value="keluar">Keluar</option>
@@ -462,6 +465,8 @@
         <input id="perubahan-qty" type="number" placeholder="Qty" class="border rounded px-3 py-2" required>
         <input id="perubahan-hsatuan" type="number" placeholder="Harga Satuan" class="border rounded px-3 py-2" required>
         <input id="perubahan-jumlah" type="number" placeholder="Jumlah (+/-)" class="border rounded px-3 py-2" required>
+        
+        <!-- Pilihan kategori masuk/keluar -->
         <select id="perubahan-kategori" class="border rounded px-3 py-2">
           <option value="masuk">Masuk</option>
           <option value="keluar">Keluar</option>
@@ -471,6 +476,7 @@
     </form>
   </div>
 </section>
+
 <!-- Footer -->
 <footer class="bg-blue-600 text-white text-center py-4 mt-auto">
   <p class="text-sm">&copy; 2026 | SD NEGERI WONOKERTO | KECAMATAN LEKSONO | 085323877778</p>
@@ -497,149 +503,66 @@ function formatNumber(input){
   if(!isNaN(value)&&value!==''){input.value=Number(value).toLocaleString('en-US');}
 }
 
-function addTransaction(event,category){
-  event.preventDefault();
-  const today=new Date().toLocaleDateString('id-ID');
-  const uraian=document.getElementById(category+"-uraian").value;
-  const qty=document.getElementById(category+"-qty").value;
-  const hsatuan=document.getElementById(category+"-hsatuan").value.replace(/,/g,'');
-  const jumlah=document.getElementById(category+"-jumlah").value.replace(/,/g,'');
-  const kelasField=document.getElementById(category+"-kelas");
-  const kelas=kelasField?kelasField.value:"-";
-
-  let nilai=parseFloat(jumlah);
-  if(isNaN(nilai)) nilai=0;
-  saldoKategori[category]+=nilai;
-
-  if(nilai > 0){ totalPemasukan += nilai; }
-  else { totalPengeluaran += Math.abs(nilai); }
-
-  updateRingkasan();
-
-  const tbody=document.getElementById("tbody-"+category);
-  const row=document.createElement("tr");
-  row.innerHTML=`
-    <td>${today}</td>
-    <td>${uraian}</td>
-    <td>${qty}</td>
-    <td>${Number(hsatuan).toLocaleString('en-US')}</td>
-    <td>${Number(jumlah).toLocaleString('en-US')}</td>
-    <td>${saldoKategori[category].toLocaleString('en-US')}</td>
-    ${kelasField?`<td>${kelas}</td>`:""}
-    <td>
-      <select onchange="if(this.value==='Hapus'){hapusBaris(this,'${category}',${nilai});}">
-        <option>Edit</option>
-        <option>Hapus</option>
-      </select>
-    </td>`;
-  tbody.appendChild(row);
-}
-
-function hapusBaris(selectEl,category,nilai){
-  saldoKategori[category]-=nilai;
-  if(nilai > 0){ totalPemasukan -= nilai; }
-  else { totalPengeluaran -= Math.abs(nilai); }
-  updateRingkasan();
-  selectEl.closest('tr').remove();
-}
-
-function updateRingkasan(){
-  document.getElementById("total-pemasukan").textContent = "Rp " + totalPemasukan.toLocaleString('id-ID');
-  document.getElementById("total-pengeluaran").textContent = "Rp " + totalPengeluaran.toLocaleString('id-ID');
-  document.getElementById("total-saldo").textContent = "Rp " + (totalPemasukan - totalPengeluaran).toLocaleString('id-ID');
-}
-
-function resetTable(category){
-  document.getElementById("tbody-"+category).innerHTML='';
-  saldoKategori[category]=0;
-  totalPemasukan=0;
-  totalPengeluaran=0;
-  updateRingkasan();
-}
-
-function exportTableToExcel(tableId, filename){
-  let table = document.getElementById(tableId).querySelector("table");
-  let wb = XLSX.utils.table_to_book(table, {sheet:"Sheet1"});
-  XLSX.writeFile(wb, filename+".xlsx");
-}
-
-function exportTableToPDF(tableId, filename){
-  let { jsPDF } = window.jspdf;
-  let doc = new jsPDF();
-  doc.text(filename+" Report", 10, 10);
-  doc.autoTable({ html: "#"+tableId+" table" });
-  doc.save(filename+".pdf");
-}
-
-function filterByClass(category, kelas){
-  const rows = document.querySelectorAll(`#tbody-${category} tr`);
-  rows.forEach(row=>{
-    const kelasCell = row.querySelector("td:nth-child(7)");
-    if(kelas==="all" || (kelasCell && kelasCell.textContent===kelas)){
-      row.style.display="";
-    } else {
-      row.style.display="none";
-    }
-  });
-}
-    function hitungJumlah(category){
+function hitungJumlah(category){
   const qty = parseFloat(document.getElementById(category+"-qty").value) || 0;
   const hsatuan = parseFloat(document.getElementById(category+"-hsatuan").value) || 0;
   const jumlah = qty * hsatuan;
   document.getElementById(category+"-jumlah").value = jumlah.toLocaleString('en-US');
 }
 
-<script>
-  function addTransaction(event, category) {
-    event.preventDefault();
+function addTransaction(event, category) {
+  event.preventDefault();
 
-    const today = new Date().toLocaleDateString('id-ID');
-    const uraian = document.getElementById(category + "-uraian").value;
-    const qty = parseFloat(document.getElementById(category + "-qty").value) || 0;
-    const hsatuan = parseFloat(document.getElementById(category + "-hsatuan").value) || 0;
-    const jumlah = qty * hsatuan;
+  const today = new Date().toLocaleDateString('id-ID');
+  const uraian = document.getElementById(category + "-uraian").value;
+  const qty = parseFloat(document.getElementById(category + "-qty").value) || 0;
+  const hsatuan = parseFloat(document.getElementById(category + "-hsatuan").value) || 0;
+  const jumlah = qty * hsatuan;
 
-    const kelasField = document.getElementById(category + "-kelas");
-    const kelas = kelasField ? kelasField.value : "-";
+  const kelasField = document.getElementById(category + "-kelas");
+  const kelas = kelasField ? kelasField.value : "-";
 
-    const kategoriField = document.getElementById(category + "-kategori");
-    const kategori = kategoriField ? kategoriField.value : "masuk";
+  const kategoriField = document.getElementById(category + "-kategori");
+  const kategori = kategoriField ? kategoriField.value : "masuk";
 
-    let nilai = jumlah;
-    if (kategori === "masuk") {
-      saldoKategori[category] += nilai;
-      totalPemasukan += nilai;
-    } else {
-      saldoKategori[category] -= nilai;
-      totalPengeluaran += nilai;
-    }
-
-    updateRingkasan();
-
-    const tbody = document.getElementById("tbody-" + category);
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td>${today}</td>
-      <td>${uraian}</td>
-      <td>${qty}</td>
-      <td>${hsatuan.toLocaleString('en-US')}</td>
-      <td>${jumlah.toLocaleString('en-US')}</td>
-      <td>${saldoKategori[category].toLocaleString('en-US')}</td>
-      ${kelasField ? `<td>${kelas}</td>` : ""}
-      <td>
-        <select onchange="aksiBaris(this,'${category}',${nilai},'${kategori}',
-          '${uraian}',${qty},${hsatuan},'${kelas}')">
-          <option>Pilih</option>
-          <option>Edit</option>
-          <option>Hapus</option>
-        </select>
-      </td>`;
-    tbody.appendChild(row);
-
-    // Kosongkan form setelah simpan
-    event.target.reset();
-    document.getElementById(category + "-jumlah").value = "";
+  let nilai = jumlah;
+  if (kategori === "masuk") {
+    saldoKategori[category] += nilai;
+    totalPemasukan += nilai;
+  } else {
+    saldoKategori[category] -= nilai;
+    totalPengeluaran += nilai;
   }
+
+  updateRingkasan();
+
+  const tbody = document.getElementById("tbody-" + category);
+  const row = document.createElement("tr");
+  row.innerHTML = `
+    <td>${today}</td>
+    <td>${uraian}</td>
+    <td>${qty}</td>
+    <td>${hsatuan.toLocaleString('en-US')}</td>
+    <td>${jumlah.toLocaleString('en-US')}</td>
+    <td>${saldoKategori[category].toLocaleString('en-US')}</td>
+    ${kelasField ? `<td>${kelas}</td>` : ""}
+    <td>
+      <select onchange="aksiBaris(this,'${category}',${nilai},'${kategori}',
+        '${uraian}',${qty},${hsatuan},'${kelas}')">
+        <option>Pilih</option>
+        <option>Edit</option>
+        <option>Hapus</option>
+      </select>
+    </td>`;
+  tbody.appendChild(row);
+
+  // Kosongkan form setelah simpan
+  event.target.reset();
+  document.getElementById(category + "-jumlah").value = "";
+
+  // Simpan ke localStorage
+  saveData(category);
+}
 
 function aksiBaris(selectEl, category, nilai, kategori, uraian, qty, hsatuan, kelas) {
   if (selectEl.value === 'Hapus') {
@@ -663,12 +586,34 @@ function aksiBaris(selectEl, category, nilai, kategori, uraian, qty, hsatuan, ke
     updateRingkasan();
 
     selectEl.closest('tr').remove();
+    saveData(category);
   }
 }
 
+function hapusBaris(selectEl, category, nilai, kategori){
+  if (kategori === "masuk") {
+    saldoKategori[category] -= nilai;
+    totalPemasukan -= nilai;
+  } else {
+    saldoKategori[category] += nilai;
+    totalPengeluaran -= nilai;
+  }
+  updateRingkasan();
+  selectEl.closest('tr').remove();
+  saveData(category);
+}
+
+function updateRingkasan(){
+  document.getElementById("total-pemasukan").textContent = "Rp " + totalPemasukan.toLocaleString('id-ID');
+  document.getElementById("total-pengeluaran").textContent = "Rp " + totalPengeluaran.toLocaleString('id-ID');
+  document.getElementById("total-saldo").textContent = "Rp " + (totalPemasukan - totalPengeluaran).toLocaleString('id-ID');
+}
+
 function resetTable(category) {
-  const yakin = confirm("Apakah Anda yakin akan menghapus semua data yang ada di tabel " + category.toUpperCase() + " ?");
-  
+  const yakin = confirm(
+    "Apakah Anda yakin akan menghapus semua data yang ada di tabel " + category.toUpperCase() + " ?"
+  );
+
   if (yakin) {
     const tbody = document.getElementById("tbody-" + category);
     tbody.innerHTML = "";
@@ -680,16 +625,20 @@ function resetTable(category) {
       totalPengeluaran -= Math.abs(saldoKategori[category]);
     }
 
+    // Reset saldo kategori
     saldoKategori[category] = 0;
+
+    // Update ringkasan total
     updateRingkasan();
 
+    // Hapus data dari localStorage
     localStorage.removeItem("data-" + category);
     localStorage.removeItem("saldo-" + category);
   }
 }
-
-  // ... fungsi hapusBaris(), updateRingkasan(), dll
 </script>
 </body>
 </html>
+
+
 
