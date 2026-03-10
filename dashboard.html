@@ -490,7 +490,8 @@ let saldoKategori = {
 };
 let totalPemasukan = 0;
 let totalPengeluaran = 0;
-
+<script>
+<script>
 function showTable(category){
   document.querySelectorAll("section[id^='tabel-']").forEach(t=>t.classList.add("hidden"));
   document.querySelectorAll("section[id^='form-']").forEach(f=>f.classList.add("hidden"));
@@ -498,6 +499,32 @@ function showTable(category){
   document.getElementById("form-"+category).classList.remove("hidden");
 }
 
+// Fungsi Export ke Excel
+function exportTableToExcel(sectionId, filename){
+  let table = document.querySelector(`#${sectionId} table`);
+  if (!table) {
+    alert("Tabel tidak ditemukan!");
+    return;
+  }
+  let wb = XLSX.utils.table_to_book(table, {sheet:"Sheet1"});
+  XLSX.writeFile(wb, filename+".xlsx");
+}
+
+// Fungsi Export ke PDF
+function exportTableToPDF(sectionId, filename){
+  let table = document.querySelector(`#${sectionId} table`);
+  if (!table) {
+    alert("Tabel tidak ditemukan!");
+    return;
+  }
+  const { jsPDF } = window.jspdf;
+  let doc = new jsPDF();
+  doc.text(filename + " Report", 10, 10);
+  doc.autoTable({ html: table });
+  doc.save(filename + ".pdf");
+}
+</script>
+<script>
 function formatNumber(input){
   let value=input.value.replace(/,/g,'');
   if(!isNaN(value)&&value!==''){input.value=Number(value).toLocaleString('en-US');}
@@ -637,7 +664,31 @@ function resetTable(category) {
     localStorage.removeItem("saldo-" + category);
   }
 }
+    // Fungsi Export ke Excel
+  function exportTableToExcel(sectionId, filename){
+    let table = document.querySelector(`#${sectionId} table`);
+    if (!table) {
+      alert("Tabel tidak ditemukan!");
+      return;
+    }
+    let wb = XLSX.utils.table_to_book(table, {sheet:"Sheet1"});
+    XLSX.writeFile(wb, filename+".xlsx");
+  }
+  
+  // Fungsi Export ke PDF
+  function exportTableToPDF(sectionId, filename){
+    let table = document.querySelector(`#${sectionId} table`);
+    if (!table) {
+      alert("Tabel tidak ditemukan!");
+      return;
+    }
+    const { jsPDF } = window.jspdf;
+    let doc = new jsPDF();
+    doc.text(filename + " Report", 10, 10);
+    doc.autoTable({ html: table });
+    doc.save(filename + ".pdf");
+  }
 </script>
+
 </body>
 </html>
-
